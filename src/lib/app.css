@@ -1,0 +1,28 @@
+:root {
+  --color-calendar-graph-day-bg: var(--color-scale-gray-8);
+  --color-calendar-graph-day-border: rgba(27, 31, 35, 0.06);
+  --color-calendar-graph-day-L1-bg: #0e4429;
+  --color-calendar-graph-day-L2-bg: #006d32;
+  --color-calendar-graph-day-L3-bg: #26a641;
+  --color-calendar-graph-day-L4-bg: #39d353;
+  --color-scale-black: #1c2128;
+  --color-scale-white: #cdd9e5;
+  --color-scale-gray-0: #cdd9e5;
+  --color-scale-gray-1: #adbac7;
+  --color-scale-gray-2: #909dab;
+  --color-scale-gray-3: #768390;
+  --color-scale-gray-4: #636e7b;
+  --color-scale-gray-5: #545d68;
+  --color-scale-gray-6: #444c56;
+  --color-scale-gray-7: #373e47;
+  --color-scale-gray-8: #2d333b;
+  --color-scale-gray-9: #22272e;
+}
+
+body {
+  @apply bg-gh-black;
+}
+
+.gray-field {
+  @apply rounded-md border border-gh-gray-6 bg-gh-gray-8 hover:bg-gh-gray-7 py-1 px-2;
+}
