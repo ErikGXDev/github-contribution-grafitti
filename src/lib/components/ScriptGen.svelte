@@ -1,6 +1,6 @@
 <script lang="ts">
   export let data: { [index: string]: number };
-  export let commit: number;
+  export let commit: number[];
 
   $: scriptData = Object.entries(data)
     .filter((el) => {
@@ -8,10 +8,10 @@
 
       return v != 0;
     })
-    .map((el) => {
+    .map((el, i) => {
       const [k, v] = el;
       console.log(k, v, commit);
-      let adjusted = Number(commit) * (0.25 * Number(v));
+      let adjusted = commit[commit.length - v - 1];
       console.log(adjusted);
       return "'" + k + ":" + adjusted + "',";
     })
@@ -37,11 +37,23 @@ data.forEach((d) => {
 })
 
 execSync("git push")`;
+
+  let dlink: HTMLAnchorElement;
+  let ddlink = "";
+  function download(e: Event) {
+    ddlink = "data:text/plain;charset=utf-8," + encodeURIComponent(scriptText);
+  }
 </script>
 
 <div class="w-full">
-  <p class="mb-2">script.js</p>
-  <textarea value={scriptText} class="gray-field w-full" rows={10} />
+  <textarea value={scriptText} id="script" class="gray-field w-full" rows={10} />
+  <a
+    bind:this={dlink}
+    on:click={download}
+    href={ddlink}
+    download="script.js"
+    class="gray-field text-sm mt-2 block w-fit">Download Script</a
+  >
 </div>
 
 <div class="w-full">

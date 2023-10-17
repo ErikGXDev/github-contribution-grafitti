@@ -76,7 +76,11 @@
 
   let mousedown = false;
 
-  let commit = 8;
+  let commit = new Array(5).fill(null).map((_, i) => Math.floor(12 * (0.25 * (4 - i))));
+
+  function upgradeCommit() {
+    commit = [...commit];
+  }
 
   generateGrid();
 </script>
@@ -100,18 +104,24 @@
   </div>
   <hr />
   <div>
-    <p>Set how many commits a light green tile should create.</p>
+    <p>Set how many commits each green color should generate.</p>
     <p class="w-1/2">
-      For best accuracy, enter the highest amount of commits you have in a single day in your
-      specified year. Alternatively you can choose a very high number.
+      Experiment around and try to match the colors from your Github contribution table.
     </p>
   </div>
-  <input class="gray-field mt-2" type="number" bind:value={commit} />
+
   <div class="flex gap-2 mt-4">
     {#each Array(5) as _, i}
-      <div class="w-12">
+      <div class="w-16">
         <GridCell state={4 - i} />
-        <span>{Math.floor(commit * (0.25 * (4 - i)))}</span>
+        {#if i < 4}
+          <input
+            class="gray-field w-16 mt-2"
+            type="number"
+            bind:value={commit[i]}
+            on:input={upgradeCommit}
+          />
+        {/if}
       </div>
     {/each}
   </div>
@@ -166,9 +176,10 @@
     </div>
   </div>
   <div class="mt-4 flex gap-2">
-    <button
-      class="rounded-md border border-gh-green-4 bg-gh-green-2 hover:bg-gh-green-3 p-1 px-2"
-      on:click={resetGrid}>Generate Script</button
+    <a
+      href="#script"
+      class="rounded-md border border-gh-green-4 bg-gh-green-2 hover:bg-gh-green-3 p-1 px-2 cursor-pointer"
+      >Generate Script</a
     >
     <button class="gray-field" on:click={resetGrid}>Reset Grid</button>
   </div>
